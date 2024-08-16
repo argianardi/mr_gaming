@@ -33,9 +33,9 @@ export default function RootLayout({
           sizes="16x16"
         />
       </head>
-      <body className="bg-[#f2f5f7] min-h-screen flex flex-col h-[800px]">
+      <body className="bg-[#f2f5f7] min-h-screen flex flex-col">
         <Header />
-        <main className="mx-4  sm:mx-6  md:mx-8  lg:mx-10  xl:mx-12  flex-1">
+        <main className="mb-6 w-[300px] exs:w-full overflow-x-hidden mx-auto flex-1 md:w-[750px] lg:w-[950px] xl:w-[1020px] 3xl:w-[1200px] 5xl:w-[1900px]">
           {children}
         </main>
         <Footer />
