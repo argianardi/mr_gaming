@@ -1,11 +1,35 @@
 'use client';
+
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { RiAccountPinCircleFill } from 'react-icons/ri';
 import { IoIosSearch } from 'react-icons/io';
+import { TiHomeOutline } from 'react-icons/ti';
+import { LuGift } from 'react-icons/lu';
+import { FaHandshake } from 'react-icons/fa6';
+import { usePathname } from 'next/navigation';
 
 const Header = () => {
   const [bgNav, setBgNav] = useState(' ');
+  const pathname = usePathname();
+
+  const navigations = [
+    {
+      name: 'Home',
+      icon: TiHomeOutline,
+      link: '/',
+    },
+    {
+      name: 'Poin Rewards',
+      icon: LuGift,
+      link: '/rewards',
+    },
+    {
+      name: 'Afiliasi',
+      icon: FaHandshake,
+      link: '/affiliate',
+    },
+  ];
 
   const changeBackground = () => {
     if (window.scrollY == 0) {
@@ -24,55 +48,45 @@ const Header = () => {
   }, []);
 
   return (
-    <header className={`bg-base-100 sticky top-0 ${bgNav}`}>
-      <div className="px-4 navbar sm:px-6 md:px-8 lg:px-10 xl:px-12">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+    <header className={`bg-base-100 sticky z-[9999] top-0 ${bgNav}`}>
+      <div className="px-4 justify-center lg:justify-between navbar sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        <div className="space-x-8">
+          <Link
+            href={'/'}
+            className="btn btn-ghost text-3xl font-Knewave font-bold text-[#cf5f00] italic"
+          >
+            MR GAMING
+          </Link>
+          <div className="hidden lg:flex gap-4">
+            {navigations.map((nav, index) => (
+              <Link
+                key={index}
+                href={nav.link}
+                className="flex items-center gap-1 group"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h7"
+                <nav.icon
+                  className={`text-3xl transition-all duration-300 group-hover:text-[#1a1f39] ${
+                    pathname === nav.link ? 'text-[#1a1f39] ' : 'text-[#2f4158]'
+                  }`}
                 />
-              </svg>
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <a>Homepage</a>
-              </li>
-              <li>
-                <a>Portfolio</a>
-              </li>
-              <li>
-                <a>About</a>
-              </li>
-            </ul>
+                <span
+                  className={`font-Roboto text-lg transition-all duration-300 group-hover:text-[#1a1f39] group-hover:font-bold ${
+                    pathname === nav.link
+                      ? 'text-[#1a1f39] font-bold'
+                      : 'text-[#2f4158]'
+                  }`}
+                >
+                  {nav.name}
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
-        <div className="navbar-center">
-          <Link href={'/'} className="btn btn-ghost text-xl font-Roboto">
-            daisyUI
-          </Link>
-        </div>
-        <div className="navbar-end">
-          <button className="btn btn-ghost btn-circle">
+
+        <div className="justify-end hidden lg:block max-w-56 space-x-1">
+          <Link href={'/cari-game'} className="btn btn-ghost btn-circle">
             <IoIosSearch className="text-2xl" />
-          </button>
+          </Link>
           <Link href={'/login'} className="btn btn-neutral bg-[#2f4158]">
             <RiAccountPinCircleFill className="text-white text-2xl" />
             <span className="text-white">Masuk</span>
